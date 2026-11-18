@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source": "OSC 1.0 atomic types and DSProtocol v2 Connection request; hex authored without ds_mock",
+  "valid": [
+    {
+      "id": "connect-25788",
+      "message": {"address": "/DS2/HC/Connect", "types": "i", "args": [25788]},
+      "packet_hex": "2f4453322f48432f436f6e6e656374002c690000000064bc"
+    },
+    {
+      "id": "signed-int-float-utf8",
+      "message": {"address": "/t", "types": "ifs", "args": [-2147483648, 1.0, "é"]},
+      "packet_hex": "2f7400002c69667300000000800000003f800000c3a90000"
+    },
+    {
+      "id": "timestamp-sign-bits",
+      "message": {"address": "/t", "types": "ii", "args": [-2147483648, -1]},
+      "packet_hex": "2f7400002c69690080000000ffffffff"
+    },
+    {
+      "id": "zero-args",
+      "message": {"address": "/t", "types": "", "args": []},
+      "packet_hex": "2f7400002c000000"
+    }
+  ],
+  "invalid": [
+    {"id": "empty", "packet_hex": ""},
+    {"id": "unaligned", "packet_hex": "2f7400"},
+    {"id": "nonzero-padding", "packet_hex": "2f7400012c000000"},
+    {"id": "unterminated", "packet_hex": "2f747474"},
+    {"id": "missing-tag-comma", "packet_hex": "2f7400006900000000000002"},
+    {"id": "truncated-int", "packet_hex": "2f7400002c690000"},
+    {"id": "trailing-data", "packet_hex": "2f7400002c00000000000000"},
+    {"id": "unsupported-double", "packet_hex": "2f7400002c6400003ff0000000000000"},
+    {"id": "invalid-utf8", "packet_hex": "2f7400002c730000ff000000"},
+    {"id": "bundle-unsupported", "packet_hex": "2362756e646c65000000000000000001"}
+  ],
+  "timestamps": [
+    {"ms": 0, "hi": 0, "lo": 0},
+    {"ms": 2147483647, "hi": 0, "lo": 2147483647},
+    {"ms": 2147483648, "hi": 0, "lo": -2147483648},
+    {"ms": 4294967295, "hi": 0, "lo": -1},
+    {"ms": 4294967296, "hi": 1, "lo": 0},
+    {"ms": 1700000000123, "hi": 395, "lo": -807049093},
+    {"ms": 9223372036854775808, "hi": -2147483648, "lo": 0},
+    {"ms": 18446744073709551615, "hi": -1, "lo": -1}
+  ]
+}

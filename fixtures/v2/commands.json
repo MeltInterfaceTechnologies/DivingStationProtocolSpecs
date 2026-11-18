@@ -1,0 +1,867 @@
+{
+  "schema_version": 1,
+  "source_commit": "745e3903dc17f51d3e30e18d9dfa61bca7f0781f",
+  "cases": [
+    {
+      "id": "profile-found",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          -2147483648,
+          "00000000-0000-4000-8000-000000000001"
+        ]
+      },
+      "expected": {
+        "outcome": "profile",
+        "emissions": [
+          {
+            "target": [
+              "127.0.0.1",
+              42000
+            ],
+            "message": {
+              "address": "/DS2/HC/HandSkeleton/Profile",
+              "types": "iisiss",
+              "args": [
+                2,
+                -2147483648,
+                "00000000-0000-4000-8000-000000000001",
+                0,
+                "Mock left",
+                "Synthetic left profile; no retargeting."
+              ]
+            }
+          }
+        ],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-not-found-preserves-case",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          42,
+          "ABCDEFAB-CDEF-ABCD-EFAB-CDEFABCDEFAB"
+        ]
+      },
+      "expected": {
+        "outcome": "profile",
+        "emissions": [
+          {
+            "target": [
+              "127.0.0.1",
+              42000
+            ],
+            "message": {
+              "address": "/DS2/HC/HandSkeleton/Profile",
+              "types": "iisiss",
+              "args": [
+                2,
+                42,
+                "ABCDEFAB-CDEF-ABCD-EFAB-CDEFABCDEFAB",
+                1,
+                "",
+                ""
+              ]
+            }
+          }
+        ],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-invalid-uuid-empty",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          43,
+          ""
+        ]
+      },
+      "expected": {
+        "outcome": "profile",
+        "emissions": [
+          {
+            "target": [
+              "127.0.0.1",
+              42000
+            ],
+            "message": {
+              "address": "/DS2/HC/HandSkeleton/Profile",
+              "types": "iisiss",
+              "args": [
+                2,
+                43,
+                "",
+                2,
+                "",
+                ""
+              ]
+            }
+          }
+        ],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-invalid-uuid-shape",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          43,
+          "111111111111111111111111111111111111"
+        ]
+      },
+      "expected": {
+        "outcome": "profile",
+        "emissions": [
+          {
+            "target": [
+              "127.0.0.1",
+              42000
+            ],
+            "message": {
+              "address": "/DS2/HC/HandSkeleton/Profile",
+              "types": "iisiss",
+              "args": [
+                2,
+                43,
+                "",
+                2,
+                "",
+                ""
+              ]
+            }
+          }
+        ],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-invalid-uuid-non-ascii",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          43,
+          "éééééééééééééééééééééééééééééééééééé"
+        ]
+      },
+      "expected": {
+        "outcome": "profile",
+        "emissions": [
+          {
+            "target": [
+              "127.0.0.1",
+              42000
+            ],
+            "message": {
+              "address": "/DS2/HC/HandSkeleton/Profile",
+              "types": "iisiss",
+              "args": [
+                2,
+                43,
+                "",
+                2,
+                "",
+                ""
+              ]
+            }
+          }
+        ],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-invalid-uuid-newline",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          43,
+          "00000000-0000-4000-8000-000000000001\n"
+        ]
+      },
+      "expected": {
+        "outcome": "profile",
+        "emissions": [
+          {
+            "target": [
+              "127.0.0.1",
+              42000
+            ],
+            "message": {
+              "address": "/DS2/HC/HandSkeleton/Profile",
+              "types": "iisiss",
+              "args": [
+                2,
+                43,
+                "",
+                2,
+                "",
+                ""
+              ]
+            }
+          }
+        ],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-wrong-version",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          1,
+          1,
+          "00000000-0000-4000-8000-000000000001"
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-wrong-request-id-type",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "ifs",
+        "args": [
+          2,
+          1.0,
+          "00000000-0000-4000-8000-000000000001"
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-wrong-uuid-type",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iii",
+        "args": [
+          2,
+          1,
+          42
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-short",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "ii",
+        "args": [
+          2,
+          1
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-long",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iiss",
+        "args": [
+          2,
+          1,
+          "00000000-0000-4000-8000-000000000001",
+          "extra"
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "profile-unauthorized",
+      "spec": "ds_protocol_v2_EN.md#retarget-profile-information-request",
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          1,
+          "00000000-0000-4000-8000-000000000001"
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      },
+      "connected": false
+    },
+    {
+      "id": "haptics-lower",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.0,
+          0.001
+        ]
+      },
+      "expected": {
+        "outcome": "haptics",
+        "emissions": [],
+        "haptics": [
+          {
+            "at_ms": 1000,
+            "source": [
+              "127.0.0.1",
+              41000
+            ],
+            "id": "MOCK-L",
+            "frequency": 100.0,
+            "amplitude": 0.0,
+            "duration": 0.0010000000474974513
+          }
+        ]
+      }
+    },
+    {
+      "id": "haptics-upper",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          500.0,
+          1.0,
+          1.0
+        ]
+      },
+      "expected": {
+        "outcome": "haptics",
+        "emissions": [],
+        "haptics": [
+          {
+            "at_ms": 1000,
+            "source": [
+              "127.0.0.1",
+              41000
+            ],
+            "id": "MOCK-L",
+            "frequency": 500.0,
+            "amplitude": 1.0,
+            "duration": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "haptics-middle",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          250.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "haptics",
+        "emissions": [],
+        "haptics": [
+          {
+            "at_ms": 1000,
+            "source": [
+              "127.0.0.1",
+              41000
+            ],
+            "id": "MOCK-L",
+            "frequency": 250.0,
+            "amplitude": 0.5,
+            "duration": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "haptics-frequency-low",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          99.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-frequency-high",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          501.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-amplitude-low",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          -0.125,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-amplitude-high",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          1.125,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-duration-low",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.5,
+          0.0005
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-duration-high",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.5,
+          1.125
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-nan",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          {
+            "float": "nan"
+          },
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-inf",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          {
+            "float": "inf"
+          },
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-negative-inf",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.5,
+          {
+            "float": "-inf"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-no-clamping",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          99.0,
+          2.0,
+          2.0
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-wrong-version",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          1,
+          100.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-integer-frequency",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "iiff",
+        "args": [
+          2,
+          100,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-missing-duration",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "iff",
+        "args": [
+          2,
+          100.0,
+          0.5
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-unknown-device-mock-policy",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/unknown/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "haptics-unauthorized",
+      "spec": "ds_protocol_v2_EN.md#vibration",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Body",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      },
+      "connected": false
+    },
+    {
+      "id": "connect-zero-port",
+      "spec": "ds_protocol_v2_EN.md#connection-request",
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          0
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "connect-negative-port",
+      "spec": "ds_protocol_v2_EN.md#connection-request",
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          -1
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "connect-large-port",
+      "spec": "ds_protocol_v2_EN.md#connection-request",
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          65536
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "connect-float-port",
+      "spec": "ds_protocol_v2_EN.md#connection-request",
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "f",
+        "args": [
+          42000.0
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "connect-extra-port",
+      "spec": "ds_protocol_v2_EN.md#connection-request",
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "ii",
+        "args": [
+          42000,
+          42001
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "connect-missing-port",
+      "spec": "ds_protocol_v2_EN.md#connection-request",
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "",
+        "args": []
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "removed-wrist",
+      "spec": "ds_protocol_v2_EN.md#removed-protocols",
+      "message": {
+        "address": "/DS2/HC/Wrist",
+        "types": "i",
+        "args": [
+          2
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "removed-finger-haptics",
+      "spec": "ds_protocol_v2_EN.md#removed-protocols",
+      "message": {
+        "address": "/DS2/HC/MOCK-L/Haptics/Finger",
+        "types": "ifff",
+        "args": [
+          2,
+          100.0,
+          0.5,
+          0.25
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    },
+    {
+      "id": "v1-unsupported",
+      "spec": "ds_protocol_v2_EN.md#removed-protocols",
+      "message": {
+        "address": "/DS/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      },
+      "expected": {
+        "outcome": "discard",
+        "emissions": [],
+        "haptics": []
+      }
+    }
+  ]
+}

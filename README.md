@@ -2,7 +2,7 @@
 
 English | [日本語](README_JA.md)
 
-DivingStationProtocol (DSProtocol) is an OSC (Open Sound Control) protocol for communicating with Melt Interface Technologies devices through DivingStation. This repository contains the protocol specifications.
+DivingStationProtocol (DSProtocol) is an OSC (Open Sound Control) protocol for communicating with Melt Interface Technologies devices through DivingStation. This repository contains the protocol specifications and a [common v2 mock with independent conformance fixtures](docs/mock-server.md).
 
 ## Supported products
 
@@ -19,4 +19,4 @@ For questions or issue reports, please [contact customer support](https://melt-i
 
 ## License
 
-The specifications and documentation are licensed under the [Apache License, Version 2.0](LICENSE).
+The specifications, mock, fixtures, tests and documentation are licensed under the [Apache License, Version 2.0](LICENSE).

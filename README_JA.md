@@ -2,7 +2,7 @@
 
 [English](README.md) | 日本語
 
-DivingStationProtocol（DSProtocol）は、DivingStationを介してMelt Interface Technologies製デバイスと通信するためのOSC（Open Sound Control）プロトコルです。このリポジトリではプロトコルの仕様書を管理しています。
+DivingStationProtocol（DSProtocol）は、DivingStationを介してMelt Interface Technologies製デバイスと通信するためのOSC（Open Sound Control）プロトコルです。このリポジトリではプロトコルの仕様書と、[v2 の共通 mock・独立 fixture](docs/mock-server_JA.md)を管理しています。
 
 ## 対応製品
 
@@ -19,4 +19,4 @@ DivingStationProtocol（DSProtocol）は、DivingStationを介してMelt Interfa
 
 ## ライセンス
 
-仕様書および文書には[Apache License, Version 2.0](LICENSE)を適用します。
+仕様書、mock、fixture、テスト、文書には[Apache License, Version 2.0](LICENSE)を適用します。

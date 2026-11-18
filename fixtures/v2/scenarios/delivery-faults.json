@@ -1,0 +1,649 @@
+{
+  "id": "loss-duplicate-out-of-order-generation-time",
+  "spec": "ds_protocol_v2_EN.md#version-and-time",
+  "policy": "No stale/duplicate rejection rule is imposed: the pinned specification does not define one. The absent 10ms frame is deliberate loss. Emission order follows the listed stream, never sorting generation times.",
+  "stream": [
+    {
+      "at_ms": 0,
+      "message": {
+        "address": "/DS2/HC/Ergonomics",
+        "types": "isiiiiffffffffffffffffffff",
+        "args": [
+          2,
+          "L",
+          1,
+          1,
+          -1,
+          0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          10.0,
+          11.0,
+          12.0,
+          13.0,
+          14.0,
+          15.0,
+          16.0,
+          17.0,
+          18.0,
+          19.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "at_ms": 20,
+      "message": {
+        "address": "/DS2/HC/Ergonomics",
+        "types": "isiiiiffffffffffffffffffff",
+        "args": [
+          2,
+          "L",
+          1,
+          1,
+          -2,
+          0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          10.0,
+          11.0,
+          12.0,
+          13.0,
+          14.0,
+          15.0,
+          16.0,
+          17.0,
+          18.0,
+          19.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "at_ms": 20,
+      "message": {
+        "address": "/DS2/HC/Ergonomics",
+        "types": "isiiiiffffffffffffffffffff",
+        "args": [
+          2,
+          "L",
+          1,
+          1,
+          -2,
+          0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          10.0,
+          11.0,
+          12.0,
+          13.0,
+          14.0,
+          15.0,
+          16.0,
+          17.0,
+          18.0,
+          19.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "at_ms": 30,
+      "packet_hex": "deadbeef"
+    },
+    {
+      "at_ms": 40,
+      "message": {
+        "address": "/DS2/HC/Ergonomics",
+        "types": "isiiiiffffffffffffffffffff",
+        "args": [
+          2,
+          "L",
+          1,
+          1,
+          -1,
+          1,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          10.0,
+          11.0,
+          12.0,
+          13.0,
+          14.0,
+          15.0,
+          16.0,
+          17.0,
+          18.0,
+          19.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "at_ms": 50,
+      "message": {
+        "address": "/DS2/HC/Ergonomics",
+        "types": "isiiiiffffffffffffffffffff",
+        "args": [
+          2,
+          "L",
+          1,
+          1,
+          -1,
+          2,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          10.0,
+          11.0,
+          12.0,
+          13.0,
+          14.0,
+          15.0,
+          16.0,
+          17.0,
+          18.0,
+          19.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "at_ms": 60,
+      "message": {
+        "address": "/DS2/HC/Device",
+        "types": "i",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "steps": [
+    {
+      "at_ms": 0,
+      "op": "receive",
+      "source": [
+        "127.0.0.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    },
+    {
+      "at_ms": 0,
+      "op": "advance"
+    },
+    {
+      "at_ms": 10,
+      "op": "advance"
+    },
+    {
+      "at_ms": 20,
+      "op": "advance"
+    },
+    {
+      "at_ms": 30,
+      "op": "advance"
+    },
+    {
+      "at_ms": 40,
+      "op": "advance"
+    },
+    {
+      "at_ms": 50,
+      "op": "advance"
+    },
+    {
+      "at_ms": 60,
+      "op": "advance"
+    },
+    {
+      "at_ms": 70,
+      "op": "advance"
+    }
+  ],
+  "expected": [
+    {
+      "at_ms": 0,
+      "outcome": "connected",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 0,
+      "outcome": "advanced",
+      "emissions": [
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "message": {
+            "address": "/DS2/HC/Ergonomics",
+            "types": "isiiiiffffffffffffffffffff",
+            "args": [
+              2,
+              "L",
+              1,
+              1,
+              -1,
+              0,
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0
+            ]
+          }
+        }
+      ],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 10,
+      "outcome": "advanced",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 20,
+      "outcome": "advanced",
+      "emissions": [
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "message": {
+            "address": "/DS2/HC/Ergonomics",
+            "types": "isiiiiffffffffffffffffffff",
+            "args": [
+              2,
+              "L",
+              1,
+              1,
+              -2,
+              0,
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0
+            ]
+          }
+        },
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "message": {
+            "address": "/DS2/HC/Ergonomics",
+            "types": "isiiiiffffffffffffffffffff",
+            "args": [
+              2,
+              "L",
+              1,
+              1,
+              -2,
+              0,
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0
+            ]
+          }
+        }
+      ],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 30,
+      "outcome": "advanced",
+      "emissions": [
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "packet_hex": "deadbeef"
+        }
+      ],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 40,
+      "outcome": "advanced",
+      "emissions": [
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "message": {
+            "address": "/DS2/HC/Ergonomics",
+            "types": "isiiiiffffffffffffffffffff",
+            "args": [
+              2,
+              "L",
+              1,
+              1,
+              -1,
+              1,
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0
+            ]
+          }
+        }
+      ],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 50,
+      "outcome": "advanced",
+      "emissions": [
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "message": {
+            "address": "/DS2/HC/Ergonomics",
+            "types": "isiiiiffffffffffffffffffff",
+            "args": [
+              2,
+              "L",
+              1,
+              1,
+              -1,
+              2,
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0
+            ]
+          }
+        }
+      ],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 60,
+      "outcome": "advanced",
+      "emissions": [
+        {
+          "target": [
+            "127.0.0.1",
+            42000
+          ],
+          "message": {
+            "address": "/DS2/HC/Device",
+            "types": "i",
+            "args": [
+              1
+            ]
+          }
+        }
+      ],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 70,
+      "outcome": "advanced",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    }
+  ],
+  "delivery_expectations": [
+    {
+      "verdict": "accept",
+      "generated_at_ms": 8589934591,
+      "usable_for_control": true
+    },
+    {
+      "verdict": "accept",
+      "generated_at_ms": 8589934590,
+      "usable_for_control": true
+    },
+    {
+      "verdict": "accept",
+      "generated_at_ms": 8589934590,
+      "usable_for_control": true
+    },
+    {
+      "verdict": "malformed"
+    },
+    {
+      "verdict": "accept",
+      "generated_at_ms": 8589934591,
+      "usable_for_control": false
+    },
+    {
+      "verdict": "accept",
+      "generated_at_ms": 8589934591,
+      "usable_for_control": false
+    },
+    {
+      "verdict": "ignore"
+    }
+  ]
+}

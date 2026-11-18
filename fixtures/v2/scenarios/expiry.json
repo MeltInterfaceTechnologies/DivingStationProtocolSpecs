@@ -1,0 +1,160 @@
+{
+  "id": "exact-expiry-and-rate-limit-policy",
+  "spec": "ds_protocol_v2_EN.md#usage",
+  "steps": [
+    {
+      "at_ms": 0,
+      "op": "receive",
+      "source": [
+        "127.0.0.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    },
+    {
+      "at_ms": 999,
+      "op": "receive",
+      "source": [
+        "127.0.0.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    },
+    {
+      "at_ms": 89999,
+      "op": "advance"
+    },
+    {
+      "at_ms": 90000,
+      "op": "advance"
+    },
+    {
+      "at_ms": 90000,
+      "op": "receive",
+      "source": [
+        "127.0.0.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/HandSkeleton/Profile/Get",
+        "types": "iis",
+        "args": [
+          2,
+          1,
+          "00000000-0000-4000-8000-000000000001"
+        ]
+      }
+    },
+    {
+      "at_ms": 90001,
+      "op": "receive",
+      "source": [
+        "127.0.0.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    }
+  ],
+  "expected": [
+    {
+      "at_ms": 0,
+      "outcome": "connected",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 999,
+      "outcome": "rate_limited",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 89999,
+      "outcome": "advanced",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 90000,
+      "outcome": "advanced",
+      "emissions": [],
+      "sessions": [],
+      "haptics": []
+    },
+    {
+      "at_ms": 90000,
+      "outcome": "discard",
+      "emissions": [],
+      "sessions": [],
+      "haptics": []
+    },
+    {
+      "at_ms": 90001,
+      "outcome": "connected",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "127.0.0.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 90001
+        }
+      ],
+      "haptics": []
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "id": "same-receive-port-different-ip",
+  "spec": "ds_protocol_v2_EN.md#disconnection-request",
+  "steps": [
+    {
+      "at_ms": 0,
+      "op": "receive",
+      "source": [
+        "192.0.2.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    },
+    {
+      "at_ms": 0,
+      "op": "receive",
+      "source": [
+        "192.0.2.2",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Connect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    },
+    {
+      "at_ms": 1,
+      "op": "receive",
+      "source": [
+        "192.0.2.1",
+        41000
+      ],
+      "message": {
+        "address": "/DS2/HC/Disconnect",
+        "types": "i",
+        "args": [
+          42000
+        ]
+      }
+    }
+  ],
+  "expected": [
+    {
+      "at_ms": 0,
+      "outcome": "connected",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "192.0.2.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 0,
+      "outcome": "connected",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "192.0.2.1",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        },
+        {
+          "source": [
+            "192.0.2.2",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "at_ms": 1,
+      "outcome": "disconnected",
+      "emissions": [],
+      "sessions": [
+        {
+          "source": [
+            "192.0.2.2",
+            41000
+          ],
+          "receive_port": 42000,
+          "approved": true,
+          "last_connect_ms": 0
+        }
+      ],
+      "haptics": []
+    }
+  ]
+}
